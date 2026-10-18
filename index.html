@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Celestial Mapping &amp; Geodetic Positioning in Ancient India</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&amp;family=EB+Garamond:ital@0;1&amp;family=Tiro+Devanagari+Sanskrit&amp;display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2a1a0e;--vel:#e6d3a6;--gilt:#c9a24a;--deep:#05061a;--verm:#a8321a;--ind:#1c2a6b;--brn:#6b4c1b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--deep);font:18px/1.55 'EB Garamond',Georgia,serif;color:var(--ink)}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+h1,h2,h3,.disp{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;margin:0}
+.dv{font-family:'Tiro Devanagari Sanskrit','Noto Serif Devanagari',serif;color:var(--verm);font-size:20px;letter-spacing:.04em}
+#veil{position:fixed;inset:0;background:var(--deep);z-index:20;transition:opacity 2.6s ease;pointer-events:none}
+#vg{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse at center,transparent 52%,rgba(4,3,14,.6))}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;gap:2px;justify-content:center;flex-wrap:wrap;padding:6px 8px;z-index:5;background:linear-gradient(rgba(5,6,26,.82),rgba(5,6,26,.4));border-bottom:1px solid rgba(201,162,74,.55)}
+nav button{font:600 18px 'Cormorant Garamond',Georgia,serif;background:none;color:#e9d9ae;border:0;border-bottom:2px solid transparent;padding:3px 14px;cursor:pointer;transition:color .3s,border-color .3s,letter-spacing .3s}
+nav button:hover{color:#fff3c9;letter-spacing:.03em}nav button.a{color:#f6d77a;border-color:var(--gilt)}
+#bar{position:fixed;left:0;top:0;height:3px;width:100%;z-index:6}#pg{height:100%;width:0;background:linear-gradient(90deg,#8a6420,#f0d27a);transition:width 1s}
+.btn,.tab{font:700 17px 'Cormorant Garamond',Georgia,serif;background:linear-gradient(#f0e1b9,#d8bf88);color:var(--ink);border:1px solid var(--brn);box-shadow:inset 0 0 0 2px #f0e1b9,inset 0 0 0 3px rgba(107,76,27,.45);padding:5px 14px;cursor:pointer;transition:background .3s,transform .2s,box-shadow .3s}
+.btn:hover,.tab:hover{background:linear-gradient(#f8dc87,#c9a24a);transform:translateY(-1px)}.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.45;cursor:default;transform:none}.tab.a{background:var(--ink);color:#f0d98c;box-shadow:inset 0 0 0 2px var(--ink),inset 0 0 0 3px var(--gilt)}
+.btn:focus-visible,nav button:focus-visible,input:focus-visible{outline:2px solid var(--verm);outline-offset:2px}
+.panel{position:fixed;left:3vw;bottom:calc(3.5vh + env(safe-area-inset-bottom,0px));width:min(440px,94vw);max-height:72vh;overflow:auto;padding:22px 26px;background:radial-gradient(ellipse at 15% 0,rgba(255,250,225,.6),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(140,95,40,.3),transparent 55%),var(--vel);box-shadow:inset 0 0 0 6px var(--vel),inset 0 0 0 7px var(--brn),inset 0 0 0 10px var(--vel),inset 0 0 0 11px rgba(107,76,27,.55),0 20px 60px rgba(0,0,0,.6);opacity:0;pointer-events:none;transform:translateY(30px);transition:opacity .9s,transform .9s;z-index:4;scrollbar-width:thin;scrollbar-color:var(--brn) transparent}
+.panel::before{content:"";position:fixed;display:none}
+.panel.on{opacity:1;pointer-events:auto;transform:none}.panel.r{left:auto;right:3vw}
+.panel h2{font-size:31px;line-height:1.05;color:var(--ink)}.panel h2+.dv{margin-top:2px}
+.panel h2::after{content:"";display:block;height:9px;margin:7px 0 4px;background:linear-gradient(90deg,var(--verm) 0 22px,transparent 22px),radial-gradient(circle at 34px 4px,var(--gilt) 0 3px,transparent 4px),linear-gradient(var(--brn),var(--brn)) 46px 4px/calc(100% - 46px) 1px no-repeat;background-repeat:no-repeat}
+.panel p{margin:8px 0}.panel p.first::first-letter{font:700 3.1em/.78 'Cormorant Garamond',serif;color:var(--verm);float:left;padding:5px 7px 0 0}
+.small{font-size:15px;opacity:.88}.row{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+input[type=range]{width:100%;accent-color:#8a6420;height:22px;cursor:pointer}
+.panel.hero{left:4vw;bottom:6vh;width:min(560px,92vw);max-height:none;overflow:visible;text-align:left;background:none;box-shadow:none;color:#f1e2b8}
+.hero h1{font-size:clamp(30px,4.6vw,58px);line-height:1;background:linear-gradient(#fff6d2,#e2bb5c 52%,#9a7024);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 12px rgba(0,0,0,.7))}
+.hero .dv{color:#f0b86a;font-size:clamp(20px,2.6vw,30px);text-shadow:0 2px 10px #000}.hero .sub{font:italic 500 clamp(20px,2.6vw,28px) 'Cormorant Garamond',serif;color:#f6e3a8;margin:6px 0;text-shadow:0 2px 8px #000}
+.hero .lead{margin:8px 0;text-shadow:0 1px 8px #000;font-size:18px}.hero .row{justify-content:flex-start}.hero .small{color:#d9c690;text-shadow:0 1px 6px #000}
+.hero .rule{height:1px;width:min(340px,70%);margin:10px 0;background:linear-gradient(90deg,#d9b25a,transparent)}
+.hero .btn.big{font-size:22px;padding:8px 26px}
+.lb{position:fixed;left:0;top:0;font:700 16px 'Cormorant Garamond',serif;background:var(--vel);border:1px solid var(--brn);box-shadow:0 2px 8px rgba(0,0,0,.45);padding:0 8px;pointer-events:none;white-space:nowrap;z-index:3;transition:opacity .4s;color:var(--ink)}
+.lb::after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:8px;background:var(--vel);border:solid var(--brn);border-width:0 1px 1px 0;transform:translateX(-50%) rotate(45deg)}
+#hint{position:fixed;right:14px;bottom:10px;color:#e6d3a6;font-size:14px;opacity:.7;z-index:3;pointer-events:none;font-style:italic}
+#nogl{display:none;position:fixed;inset:0;padding:12vh 8vw;color:var(--vel);z-index:25;background:var(--deep)}
+ul{padding-left:20px;margin:6px 0}li{margin:5px 0}a{color:var(--verm)}
+@media(max-width:700px){.panel{max-height:50vh;padding:16px 18px}nav button{font-size:15px;padding:3px 7px}#hint{display:none}.panel.hero{bottom:3vh}}
+@media(prefers-reduced-motion:reduce){#veil{transition-duration:.2s}}
+</style></head><body>
+<div id="veil"></div><div id="vg"></div>
+<div id="bar"><div id="pg"></div></div>
+<div id="nogl"><h2 class="disp" style="font-size:36px">WebGL is not available</h2><p>This site draws its scenes in 3D. Please open it in a recent browser with hardware acceleration on. The essentials: a vertical rod’s shadow tip, marked in the morning and again in the afternoon on a circle, gives an East–West line; the perpendicular through the centre gives North–South.</p></div>
+<nav id="nav"></nav><div id="hint">Drag to look around · scroll to zoom</div>
+
+<section class="panel hero" data-s="hero">
+<div class="dv">सूर्य → शङ्कु → छाया → दिशा</div>
+<h1>Celestial Mapping<br>&amp; Geodetic Positioning<br>in Ancient India</h1>
+<div class="rule"></div>
+<p class="sub">Observing the sky to understand the Earth</p>
+<p class="lead">Long before GPS, satellites and digital navigation, Indian astronomers and seafarers relied on the sky to understand directions. They used celestial observations to determine time, direction and geographical position.</p>
+<div class="row"><button class="btn big" data-g="lab">Enter the observatory</button><button class="btn big" data-g="shanku">The Śaṅku Method</button></div>
+<p class="small">Daksh Tiwari · Darian Fernandes · Gandharv Naik · Godrea Rodrigues · Lance Deniz · Mikhial Gracias<br>FE Computer 1, Don Bosco College of Engineering, Goa</p>
+</section>
+
+<section class="panel" data-s="lab">
+<h2>A pattern emerges from the stars</h2><div class="dv">नक्षत्र</div>
+<p class="first">Celestial navigation finds position and direction by observing the Sun, Moon, stars and planets. Recurring patterns help observers recognise the night sky. Tap stars one after another to draw a pattern, or reveal one.</p>
+<div class="row"><button class="btn" id="un">Undo</button><button class="btn" id="rs">Reset</button><button class="btn" id="tl">Labels</button><button class="btn" id="tg">Lines</button><button class="btn" id="rv">Reveal pattern</button></div>
+<p class="small" id="st">Stars selected: 0</p>
+<p id="done" style="display:none"><b>Saptarishi (सप्तर्षि), the Seven Sages</b> — the Big Dipper, part of Ursa Major. Its two pointer stars, Dubhe and Merak, lead the eye toward the Pole Star, Dhruva (ध्रुव, Polaris). Positions are simplified for teaching; this is an illustration, not a claim about a specific ancient navigation procedure.</p>
+<div class="row"><button class="btn" data-g="sea">Sail into the Indian Ocean</button></div>
+</section>
+
+<section class="panel r" data-s="sea">
+<h2>Why astronomy mattered at sea</h2>
+<div class="tabs" id="seat"></div>
+<p id="seap"></p>
+<div id="moonc" style="display:none"><input type="range" id="ph" min="0" max="1" step="0.01" value="0.9" aria-label="Moon phase"></div>
+<div class="row" id="winc" style="display:none"><button class="btn" id="ws">Reverse the season’s wind</button></div>
+<p class="small">The sea, vessel and sky are stylised illustrations, not an archaeological reconstruction.</p>
+</section>
+
+<section class="panel" data-s="shanku">
+<h2 id="sh">Śaṅku Method</h2><div class="dv">शङ्कु</div>
+<p id="sp"></p>
+<div class="row"><button class="btn" id="pv">Previous</button><button class="btn" id="nx">Begin experiment</button><button class="btn" id="pl">Play demonstration</button><button class="btn" id="rx">Reset</button></div>
+<label class="small">Time of day: <b id="tt"></b></label><input type="range" id="tm" min="6.5" max="17.5" step="0.05" aria-label="Time of day">
+<p class="small" id="cap"></p>
+<div class="row"><button class="btn" id="bl">Labels</button><button class="btn" id="bc">Construction lines</button><button class="btn" id="bt">Top-down view</button><button class="btn" id="bd">Default view</button></div>
+<p class="small">Educational demonstration. The Sun is modelled as an equinox Sun at about 15° N, symmetric about noon (shadow length L = h / tan α). It is not a surveying instrument. Limits of the Śaṅku from the slides: it needs sunlight, a level and vertical setup, shadows change quickly, and manual errors creep in.</p>
+</section>
+
+<section class="panel r" data-s="know">
+<h2>The mathematics and the method’s limits</h2><div class="dv">ज्या</div>
+<div class="tabs" id="kt"></div><div id="kp"></div>
+</section>
+
+<section class="panel" data-s="end">
+<h2>Observing the sky to understand the Earth</h2>
+<p class="first">Ancient Indian knowledge systems used observations of the Sun, Moon, stars and other celestial bodies to understand time, direction and position. Through astronomical observations, mathematical methods and instruments such as the Śaṅku, ancient scholars developed practical approaches to celestial mapping and geodetic positioning. These practices show how astronomy, mathematics and geography were interconnected in ancient India.</p>
+<h3 style="margin-top:10px">References</h3>
+<ul class="small"><li><i>Indian Astronomy: A Source-book</i></li><li><i>The Nautical Almanac</i></li><li>Cambridge University Press, <i>The Worlds of the Indian Ocean</i></li><li><i>The Periplus of the Erythraean Sea</i></li><li>Rao, N. K., &amp; Thakur, P. (2017). Astronomical aspects associated with temples. ResearchGate Technical Report.</li><li>Sarma, S. R. (2019). On the Accuracy of Some Ancient Indian Astronomical Instruments. <i>Astrophysics and Space Science Proceedings</i>, 54, 15–23. NASA ADS.</li><li><a href="https://en.wikipedia.org/wiki/Indian_astronomy" target="_blank" rel="noopener">Wikipedia: Indian Astronomy</a> (Gnomon and Shanku Yantra section)</li></ul>
+<h2 style="margin-top:8px">Thank you</h2>
+<p class="small">Presented by Team 1 · FE Computer 1 · Don Bosco College of Engineering, Goa</p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(()=>{
+const T=THREE,$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v)),RM=matchMedia('(prefers-reduced-motion:reduce)').matches,V=(x,y,z)=>new T.Vector3(x,y,z),toR=Math.PI/180;
+let R;try{R=new T.WebGLRenderer({antialias:true})}catch(e){$('#nogl').style.display='block';return}
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=T.PCFSoftShadowMap;document.body.prepend(R.domElement);
+const S=new T.Scene(),C=new T.PerspectiveCamera(50,1,.1,1500);
+/* ---------- sky dome ---------- */
+const SK={dusk:{top:0x1a1b4a,hor:0xe2955a,st:.45},night:{top:0x03051a,hor:0x16224d,st:1},day:{top:0x7f9fb8,hor:0xf1dcae,st:0},sunset:{top:0x25204f,hor:0xe56e38,st:.25}};
+const cTop=new T.Color(SK.dusk.top),cHor=new T.Color(SK.dusk.hor),tmpC=new T.Color();S.fog=new T.Fog(0,70,400);S.fog.color=cHor;
+const dU={top:{value:cTop},hor:{value:cHor}};
+const dome=new T.Mesh(new T.SphereGeometry(1000,24,16),new T.ShaderMaterial({uniforms:dU,side:T.BackSide,depthWrite:false,fog:false,vertexShader:'varying vec3 p;void main(){p=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform vec3 top,hor;varying vec3 p;void main(){float h=clamp(normalize(p).y,0.,1.);gl_FragColor=vec4(mix(hor,top,pow(h,.5)),1.);}'}));
+dome.renderOrder=-10;dome.frustumCulled=false;S.add(dome);
+/* ---------- textures ---------- */
+const cv=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
+const mkT=(w,f)=>{const c=cv(w,w);f(c.getContext('2d'),w);return new T.CanvasTexture(c)};
+const glowT=mkT(64,(g,w)=>{const r=g.createRadialGradient(32,32,0,32,32,32);r.addColorStop(0,'rgba(255,240,200,1)');r.addColorStop(.25,'rgba(255,220,150,.5)');r.addColorStop(1,'rgba(255,200,120,0)');g.fillStyle=r;g.fillRect(0,0,w,w)});
+const dotT=mkT(32,(g,w)=>{const r=g.createRadialGradient(16,16,0,16,16,16);r.addColorStop(0,'rgba(255,255,255,1)');r.addColorStop(.35,'rgba(255,255,255,.55)');r.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=r;g.fillRect(0,0,w,w)});
+const starT=mkT(128,(g,w)=>{g.fillStyle='#fff';const r=g.createRadialGradient(64,64,0,64,64,34);r.addColorStop(0,'rgba(255,250,230,1)');r.addColorStop(.2,'rgba(255,240,200,.6)');r.addColorStop(1,'rgba(255,230,180,0)');g.fillStyle=r;g.fillRect(0,0,w,w);
+ [[0,1],[1,0]].forEach(([a,b])=>{const l=g.createLinearGradient(64-a*62,64-b*62,64+a*62,64+b*62);l.addColorStop(0,'rgba(255,240,200,0)');l.addColorStop(.5,'rgba(255,248,225,.95)');l.addColorStop(1,'rgba(255,240,200,0)');g.fillStyle=l;g.fillRect(a?2:63,b?2:63,a?124:2,b?124:2)})});
+const ringT=mkT(128,(g,w)=>{g.strokeStyle='#e6c25e';g.lineWidth=3;g.beginPath();g.arc(64,64,40,0,7);g.stroke();g.lineWidth=1.5;g.beginPath();g.arc(64,64,48,0,7);g.stroke();g.lineWidth=3;for(let i=0;i<4;i++){const a=i*Math.PI/2;g.beginPath();g.moveTo(64+Math.cos(a)*48,64+Math.sin(a)*48);g.lineTo(64+Math.cos(a)*60,64+Math.sin(a)*60);g.stroke()}});
+const spr=(t,s,o)=>{const m=new T.Sprite(new T.SpriteMaterial(Object.assign({map:t,transparent:true,depthWrite:false,blending:T.AdditiveBlending,fog:false},o||{})));m.scale.set(s,s,1);return m};
+const noise=(g,w,n,c1,c2)=>{for(let i=0;i<n;i++){g.fillStyle=Math.random()<.5?c1:c2;g.beginPath();g.arc(Math.random()*w,Math.random()*w,Math.random()*2.2+.4,0,7);g.fill()}};
+const platT=(()=>{const c=cv(1024,1024),g=c.getContext('2d');g.fillStyle='#a98c60';g.fillRect(0,0,1024,1024);
+ for(let i=0;i<60;i++){const x=Math.random()*1024,y=Math.random()*1024,r=40+Math.random()*120,q=g.createRadialGradient(x,y,0,x,y,r);q.addColorStop(0,'rgba(120,85,45,.12)');q.addColorStop(1,'rgba(120,85,45,0)');g.fillStyle=q;g.fillRect(x-r,y-r,2*r,2*r)}
+ noise(g,1024,5000,'rgba(70,48,26,.07)','rgba(235,215,165,.07)');
+ const K=512/7.5;g.translate(512,512);g.lineCap='round';
+ const ring=(r,w,col)=>{g.strokeStyle=col;g.lineWidth=w;g.beginPath();g.arc(0,0,r*K,0,7);g.stroke()};
+ [1.5,3,4.5,6,7.2].forEach(r=>{ring(r,5,'rgba(60,40,20,.8)');ring(r+.07,2,'rgba(250,235,195,.55)')});
+ g.strokeStyle='rgba(60,40,20,.75)';for(let i=0;i<72;i++){const a=i*Math.PI/36,m=i%6===0,r0=(m?6.55:6.8)*K,r1=7.1*K;g.lineWidth=m?3:1.5;g.beginPath();g.moveTo(Math.cos(a)*r0,Math.sin(a)*r0);g.lineTo(Math.cos(a)*r1,Math.sin(a)*r1);g.stroke()}
+ g.lineWidth=2;for(let i=0;i<36;i++){const a=i*Math.PI/18+.05;g.beginPath();g.moveTo(Math.cos(a)*7.25*K,Math.sin(a)*7.25*K);g.lineTo(Math.cos(a)*7.5*K,Math.sin(a)*7.5*K);g.stroke()}
+ g.strokeStyle='rgba(70,45,22,.8)';g.lineWidth=3;for(let i=0;i<8;i++){g.save();g.rotate(i*Math.PI/4);g.beginPath();g.moveTo(0,-.2*K);g.quadraticCurveTo(.35*K,-.8*K,0,-1.35*K);g.quadraticCurveTo(-.35*K,-.8*K,0,-.2*K);g.stroke();g.restore()}
+ const t=new T.CanvasTexture(c);t.anisotropy=8;return t})();
+const grT=(()=>{const c=cv(256,256),g=c.getContext('2d');g.fillStyle='#7b6144';g.fillRect(0,0,256,256);noise(g,256,2500,'rgba(40,28,16,.25)','rgba(200,170,120,.2)');const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.repeat.set(90,90);return t})();
+const mwT=mkT(512,(g,w)=>{g.globalCompositeOperation='lighter';for(let i=0;i<500;i++){const u=Math.random(),x=60+u*390+(Math.random()-.5)*90,y=300-u*180+(Math.random()-.5)*70,r=14+Math.random()*34,q=g.createRadialGradient(x,y,0,x,y,r);q.addColorStop(0,'rgba(190,180,230,.07)');q.addColorStop(1,'rgba(190,180,230,0)');g.fillStyle=q;g.fillRect(x-r,y-r,2*r,2*r)}noise(g,512,500,'rgba(255,250,235,.5)','rgba(255,240,200,.3)')});
+/* global stars */
+{const N=1600,p=new Float32Array(N*3),col=new Float32Array(N*3);for(let i=0;i<N;i++){const u=Math.random(),a=Math.random()*6.283,r=Math.sqrt(1-u*u),b=.45+Math.random()*.55,w=Math.random();p.set([r*Math.cos(a)*900,u*880+15,r*Math.sin(a)*900],i*3);col.set([b*(w<.3?.8:1),b*(w<.3?.9:.95),b*(w<.3?1:.82)],i*3)}
+var sg=new T.BufferGeometry();sg.setAttribute('position',new T.BufferAttribute(p,3));sg.setAttribute('color',new T.BufferAttribute(col,3))}
+const stars=new T.Points(sg,new T.PointsMaterial({map:dotT,size:4,vertexColors:true,sizeAttenuation:false,transparent:true,fog:false,depthWrite:false,blending:T.AdditiveBlending}));stars.frustumCulled=false;S.add(stars);
+/* lights */
+const hemi=new T.HemisphereLight(0xffe2b0,0x3a2a40,.7),sunL=new T.DirectionalLight(0xffe0a8,1),moonL=new T.DirectionalLight(0xa9c0ff,0);
+sunL.castShadow=true;sunL.shadow.mapSize.set(2048,2048);{const c=sunL.shadow.camera;c.left=c.bottom=-14;c.right=c.top=14;c.near=10;c.far=250}sunL.shadow.bias=-.0006;sunL.shadow.normalBias=.03;
+moonL.position.set(815,45,35);moonL.target.position.set(800,0,0);S.add(hemi,sunL,moonL,moonL.target);
+/* bars */
+const bm=c=>new T.MeshBasicMaterial({color:c}),inkM=bm(0x2a1a0e),vermM=bm(0xb23a1e),indM=bm(0x1c2a6b),copM=bm(0xa35d34),glM=new T.MeshBasicMaterial({color:0xf2d27a,transparent:true,opacity:.95});
+const mkBar=(r,m)=>{const b=new T.Mesh(new T.CylinderGeometry(r,r,1,8),m);b.visible=false;return b};
+const UP=V(0,1,0);
+const bar=(m,a,b,p)=>{const d=b.clone().sub(a),L=d.length()*p;m.visible=p>.001;if(!m.visible)return;m.scale.y=L;m.position.copy(a).addScaledVector(d.normalize(),L/2);m.quaternion.setFromUnitVectors(UP,d)};
+/* ---------- A: observatory ---------- */
+const A=new T.Group();S.add(A);
+const sil=new T.MeshLambertMaterial({color:0x2a2133}),sil2=new T.MeshLambertMaterial({color:0x3a2d45}),brass=new T.MeshPhongMaterial({color:0xb8863b,specular:0xffe2a0,shininess:90,emissive:0x1e1204});
+const gr=new T.Mesh(new T.CircleGeometry(420,48),new T.MeshLambertMaterial({map:grT}));gr.rotation.x=-1.5708;gr.position.y=-.3;gr.receiveShadow=true;A.add(gr);
+const sideM=new T.MeshStandardMaterial({color:0xbfa275,roughness:.95}),topM=new T.MeshStandardMaterial({map:platT,bumpMap:platT,bumpScale:1.2,roughness:.95});
+const pl=new T.Mesh(new T.CylinderGeometry(7.5,7.5,.5,96),[sideM,topM,sideM]);pl.receiveShadow=true;pl.castShadow=true;A.add(pl);
+[[8.4,8.7,.28,-.14],[9.3,9.6,.26,-.27]].forEach(([a,b,h,y])=>{const m=new T.Mesh(new T.CylinderGeometry(a,b,h,96),new T.MeshStandardMaterial({color:0xa68a5e,roughness:1}));m.position.y=y;m.receiveShadow=true;A.add(m)});
+const gp=[[.3,0],[.3,.1],[.19,.12],[.19,.45],[.23,.5],[.17,.57],[.15,.62],[.12,4.7],[.14,4.76],[.11,4.82],[.06,4.92],[0,5]].map(p=>new T.Vector2(p[0],p[1]));
+const gn=new T.Mesh(new T.LatheGeometry(gp,24),brass);gn.position.y=.25;gn.castShadow=true;A.add(gn);
+const temple=(x,z,sc)=>{const g=new T.Group(),pts=[];for(let i=0;i<=26;i++){const y=i/26*15,r=4.2*Math.pow(1-y/15,.85)*(1+.05*Math.sin(i*2.3))+.15;pts.push(new T.Vector2(r,y))}
+ const sh=new T.Mesh(new T.LatheGeometry(pts,14),sil);sh.position.y=3;g.add(sh);
+ const pb=new T.Mesh(new T.BoxGeometry(12,3,12),sil);pb.position.y=1.5;g.add(pb);
+ const am=new T.Mesh(new T.CylinderGeometry(1.5,1.1,.7,14),sil);am.position.y=18.3;g.add(am);const ks=new T.Mesh(new T.SphereGeometry(.6,8,8),sil);ks.position.y=19.4;g.add(ks);
+ const mp=new T.Mesh(new T.ConeGeometry(6.5,4,4),sil);mp.rotation.y=Math.PI/4;mp.position.set(0,5,10);g.add(mp);const mb=new T.Mesh(new T.BoxGeometry(8,3,8),sil);mb.position.set(0,1.5,10);g.add(mb);
+ g.position.set(x,0,z);g.scale.setScalar(sc);g.rotation.y=Math.atan2(x,z)+Math.PI;A.add(g)};
+[[-60,-80,1.1],[70,-90,1.3],[-110,30,1.2],[100,60,1.4],[0,-150,1.5],[-30,125,1.2]].forEach(a=>temple(...a));
+for(let i=0;i<16;i++){const a=i/16*6.283+Math.random()*.3,r=210+Math.random()*60,h=new T.Mesh(new T.SphereGeometry(1,14,8),i%2?sil:sil2);h.scale.set(50+Math.random()*50,9+Math.random()*14,30+Math.random()*20);h.position.set(Math.cos(a)*r,-2,Math.sin(a)*r);A.add(h)}
+const dust=(()=>{const n=180,p=new Float32Array(n*3);for(let i=0;i<n;i++)p.set([(Math.random()-.5)*60,Math.random()*12,(Math.random()-.5)*60],i*3);const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(p,3));const o=new T.Points(g,new T.PointsMaterial({map:dotT,color:0xf0cf86,size:5,sizeAttenuation:false,transparent:true,opacity:.45,depthWrite:false}));A.add(o);return o})();
+const sunM=new T.Mesh(new T.SphereGeometry(3,16,16),new T.MeshBasicMaterial({color:0xffd98a,fog:false}));sunM.add(spr(glowT,46));A.add(sunM);
+const H=5,MAXE=75;
+const sdir=t=>{const f=Math.PI*(t-6)/12;return V(Math.cos(f),0,Math.sin(f))};
+const elev=t=>MAXE*Math.sin(Math.PI*cl(t-6,0,12)/12)*toR;
+const tip=(t,h)=>{const L=Math.min(h/Math.tan(Math.max(elev(t),.1)),11);return sdir(t).multiplyScalar(-L)};
+const P1=tip(9,H),P2=tip(15,H),R1=P1.length(),Y=.3;P1.y=P2.y=Y;
+const cm=new T.Mesh(new T.BufferGeometry(),inkM);A.add(cm);
+const rad=mkBar(.05,copM),ew=mkBar(.1,vermM),ns=mkBar(.1,indM),ewA=mkBar(.04,indM);A.add(rad,ew,ns,ewA);
+const pen=spr(glowT,3.2);pen.visible=false;A.add(pen);
+const mkPin=()=>{const g=new T.Group(),c=new T.Mesh(new T.ConeGeometry(.1,.55,10),brass);c.rotation.x=Math.PI;c.position.y=.27;const h=new T.Mesh(new T.SphereGeometry(.17,16,16),new T.MeshPhongMaterial({color:0xb23a1e,shininess:70}));h.position.y=.66;h.castShadow=true;g.add(c,h);const r=spr(ringT,1.8);r.position.y=.05;g.add(r);g.userData.r=r;A.add(g);return g},p1m=mkPin(),p2m=mkPin();p1m.position.copy(P1).setY(.25);p2m.position.copy(P2).setY(.25);
+/* ---------- L: constellation lab ---------- */
+const LB=new T.Group();S.add(LB);
+{const m=spr(mwT,360,{opacity:.3});m.position.set(470,20,-190);m.material.rotation=.4;LB.add(m)}
+const DP=[['Dubhe',10.9,6.8],['Merak',11.1,1.4],['Phecda',3.7,-1.3],['Megrez',.6,2],['Alioth',-4.9,1],['Mizar',-9.3,-.1],['Alkaid',-12.4,-5.7]];
+const SEQ=[6,5,4,3,0,1,2,3],SC=1.1;
+const sgeo=new T.SphereGeometry(1,8,8),hmat=new T.MeshBasicMaterial({visible:false}),smat=new T.MeshBasicMaterial({color:0xf3ead2});
+const SP=[],hits=[],SZ=[];
+const addStar=(p,s,n)=>{const i=SP.length;SP.push(p);SZ.push(s);const v=n?spr(starT,s*9):spr(dotT,s*3,{color:0xfff4d8});v.position.copy(p);LB.add(v);const h=new T.Mesh(sgeo,hmat);h.position.copy(p);h.scale.setScalar(Math.max(s*3,1.5));h.userData.i=i;LB.add(h);hits.push(h)};
+DP.forEach(([n,x,y])=>addStar(V(400+x*SC*2,3+y*SC*2,-60),.9,n));
+const pol=V(400+(10.9+5*(10.9-11.1))*SC*2,3+(6.8+5*(6.8-1.4))*SC*2,-60);addStar(pol,.75,'Dhruva');
+for(let i=0;i<150;i++){const a=(Math.random()-.5)*2.1,e=(Math.random()-.5)*1.7+.2,r=70+Math.random()*60;addStar(V(400+r*Math.sin(a)*Math.cos(e),r*Math.sin(e),-r*Math.cos(a)*Math.cos(e)),.2+Math.random()*.35)}
+let sel=[],segs=[],rings={},done=false,showLines=true,showLb=true;
+const lines=new T.Group();LB.add(lines);
+const lineM=new T.MeshBasicMaterial({color:0xf0d080,transparent:true,opacity:.9}),ptr=mkBar(.08,copM);LB.add(ptr);
+const lpen=spr(glowT,5);lpen.visible=false;LB.add(lpen);
+/* ---------- W: sea ---------- */
+const W=new T.Group();W.position.x=800;S.add(W);
+const sg2=new T.PlaneGeometry(260,260,64,64);sg2.rotateX(-1.5708);
+const sea=new T.Mesh(sg2,new T.MeshPhongMaterial({color:0x10305a,specular:0x8fb0e8,shininess:80,emissive:0x050b1a}));W.add(sea);
+const glare=new T.Mesh(new T.PlaneGeometry(4,50).rotateX(-1.5708),new T.MeshBasicMaterial({map:glowT,color:0xbfd4ff,transparent:true,opacity:.16,depthWrite:false,blending:T.AdditiveBlending,fog:false}));glare.position.set(22,.5,-32);W.add(glare);
+const boat=new T.Group(),hs=new T.Shape();hs.moveTo(-4.2,1.3);hs.quadraticCurveTo(-3.8,-.5,-2.5,-.5);hs.lineTo(2.8,-.5);hs.quadraticCurveTo(4.3,.3,4.9,2);hs.lineTo(4.2,1.1);hs.lineTo(-3.3,.7);hs.lineTo(-3.8,1.5);
+const teak=new T.MeshPhongMaterial({color:0x6b4423,shininess:25,specular:0x332211});
+boat.add(new T.Mesh(new T.ExtrudeGeometry(hs,{depth:1.7,bevelEnabled:true,bevelSize:.08,bevelThickness:.08,bevelSegments:2}).translate(0,0,-.85),teak));
+const cab=new T.Mesh(new T.BoxGeometry(1.8,1,1.6),new T.MeshPhongMaterial({color:0x4a2d16}));cab.position.set(-2.6,1.2,0);boat.add(cab);
+const mast=new T.Mesh(new T.CylinderGeometry(.07,.1,6,8),teak);mast.position.set(.2,3.2,0);boat.add(mast);
+const yard=new T.Mesh(new T.CylinderGeometry(.06,.06,8.7,8),teak);yard.position.set(0,4.1,0);yard.rotation.z=-.89;boat.add(yard);
+{const g=new T.PlaneGeometry(1,1,12,12),p=g.attributes.position,A1=V(-3.4,1.4,0),B1=V(3.4,6.8,0),C1=V(3.7,1.5,0);for(let i=0;i<p.count;i++){const u=p.getX(i)+.5,v=p.getY(i)+.5,b=A1.clone().lerp(B1,v),c2=C1.clone().lerp(B1,v),q=b.lerp(c2,u);p.setXYZ(i,q.x,q.y,.65*Math.sin(Math.PI*u)*(1-v)+.1)}g.computeVertexNormals();boat.add(new T.Mesh(g,new T.MeshPhongMaterial({color:0xe9d9ae,side:T.DoubleSide,emissive:0x2a2010,shininess:10})))}
+{const g=new T.BufferGeometry().setFromPoints([V(.2,6.2,0),V(4.8,1.9,0),V(.2,6.2,0),V(-3.9,1.4,0)]);boat.add(new T.LineSegments(g,new T.LineBasicMaterial({color:0x2a1a0e})))}
+boat.scale.setScalar(1.3);W.add(boat);
+const mU={a:{value:0}};
+const moon=new T.Mesh(new T.SphereGeometry(2.6,32,32),new T.ShaderMaterial({uniforms:mU,transparent:true,fog:false,vertexShader:'varying vec3 n;void main(){n=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform float a;varying vec3 n;void main(){float l=dot(n,vec3(sin(a),0.,cos(a)));float m=smoothstep(-.03,.06,l);float c=.9+.1*sin(n.x*23.)*sin(n.y*19.+n.z*11.);vec3 lit=vec3(.96,.92,.8)*c*(.55+.45*clamp(l,0.,1.));gl_FragColor=vec4(mix(vec3(.12,.15,.3),lit,m),mix(.25,1.,m));}'}));
+moon.add(spr(glowT,13));moon.position.set(22,26,-55);W.add(moon);
+const arcG=new T.Group();W.add(arcG);const arcP=[];for(let i=0;i<=60;i++){const a=i/60*Math.PI;arcP.push(V(Math.cos(a)*46,Math.sin(a)*40,-60))}
+arcG.add(new T.Line(new T.BufferGeometry().setFromPoints(arcP),new T.LineBasicMaterial({color:0xe6c25e,transparent:true,opacity:.7})));
+const sunS=new T.Mesh(new T.SphereGeometry(2.4,16,16),new T.MeshBasicMaterial({color:0xffd98a,fog:false}));sunS.add(spr(glowT,24));arcG.add(sunS);
+const dipG=new T.Group();W.add(dipG);{const pts=DP.map(([n,x,y])=>V(x,30+y,-70)),pp=V(10.9+5*(-.2),30+6.8+27,-70);pts.forEach(p=>{const g=spr(starT,7);g.position.copy(p);dipG.add(g)});
+for(let i=0;i<7;i++){const b=mkBar(.07,lineM);bar(b,pts[SEQ[i]],pts[SEQ[i+1]],1);dipG.add(b)}const pg=spr(starT,6);pg.position.copy(pp);dipG.add(pg);const pb=mkBar(.05,copM);bar(pb,pts[0],pp,1);dipG.add(pb);
+var dipB=pp.clone().add(V(800,0,0))}
+const wn=200,wp=new Float32Array(wn*6),wh=[];for(let i=0;i<wn;i++)wh.push(V((Math.random()-.5)*140,.8+Math.random()*3,(Math.random()-.5)*80));
+const wg=new T.BufferGeometry();wg.setAttribute('position',new T.BufferAttribute(wp,3));const wind=new T.LineSegments(wg,new T.LineBasicMaterial({color:0xcfe3ff,transparent:true,opacity:.6}));wind.frustumCulled=false;W.add(wind);
+/* ---------- labels ---------- */
+const LBL=[];const mk=(t,pos,on)=>{const el=document.createElement('div');el.className='lb';el.textContent=t;document.body.appendChild(el);LBL.push({el,pos,on});return el};
+/* ---------- state ---------- */
+const ORDER=['hero','lab','sea','shanku','know','end'],NAMES={hero:'Observatory',lab:'Constellations',sea:'Sea navigation',shanku:'Śaṅku Method',know:'Mathematics',end:'Conclusion'};
+const cur={c:V(0,-2,0),r:19,th:.7,ph:1.38},tar={c:V(0,-2,0),r:19,th:.7,ph:1.38,sp:2.6,orbit:true,auto:true,min:5,max:60};
+let sec='hero',step=0,tm=17.7,tmT=17.7,skyK='dusk',mode='all',playing=0,showCon=true,showSh=true,viewK='',tmDrag=false,windDir=1;
+const pr={rod:1,p1:0,p2:0,circ:0,ew:0,ns:0,card:0};
+const cam=(c,r,th,ph,o)=>{tar.c.set(...c);tar.r=r;tar.th=th;tar.ph=ph;Object.assign(tar,{sp:2.6,orbit:true,auto:false,min:5,max:90},o||{})};
+const STEPS=[['Ready','Press Begin. A flat plate sits level in the sunlight; nothing is marked yet.',9],['Set up the plate and rod','A rod (the Śaṅku) stands vertically, perpendicular to the plate. Drag to look around it.',9],['Mark P1 at 9 AM','The Sun is in its morning position. The tip of the rod’s shadow is marked as P1, exactly where the simulated shadow ends.',9],['Draw the circle','With the rod’s base as the centre and the distance to P1 as the radius, a circle is drawn around the plate.',9],['Watch the shadow change','Press Next and the Sun climbs on. The shadow shortens and swings round, shortest at noon, then lengthens again. The circle stays fixed.',14],['Mark P2','The shadow tip meets the circle again on the opposite side, here at 3 PM. Your slides record the second mark as 12 PM; but a shadow is shortest at noon, so it cannot reach a circle drawn from the 9 AM tip then. The second touch is in the afternoon.',15],['Join P1 and P2','A line is drawn between the two marks. It is the East–West direction.',15],['Draw the perpendicular','A line through the centre, at right angles to the East–West line, gives North–South.',15],['From the Sun’s shadow to Earth’s directions','The finished construction. Drag to rotate; the labels stay with the geometry.',15]];
+const KN={Mathematics:'<ul><li>Observations were converted into numerical measurements.</li><li>Geometry and trigonometry gave the angular positions of the Sun, Moon and stars.</li><li>The Jya (sine) function and sine tables allowed calculations with angles and arcs.</li><li>Calculations helped predict planetary positions, eclipses, seasons and celestial events.</li><li>Astronomical tables recorded and calculated the movements of celestial bodies.</li></ul><p><b>Mathematics turned observations of the sky into measurable celestial coordinates.</b></p>',
+Position:'<p><b>Latitude.</b> The altitude of a celestial body above the horizon is an angle that can be related to the observer’s latitude.</p><p><b>Longitude and time.</b> Earth turns 360° in 24 hours: 15° per hour. Try it:</p><input type="range" id="lg" min="0" max="12" step="0.5" value="3" aria-label="Time difference in hours"><svg id="lgs" viewBox="0 0 120 120" width="110" height="110" style="float:right"></svg><p class="small" id="lgt"></p><p><b>Geometry and trigonometry.</b> Angles and triangles give distances and positions that cannot be measured directly.</p><p><b>Coordinates.</b> They describe a place on Earth’s surface, linking celestial observation to geographical position.</p>',
+Uses:'<ul><li><b>Finding direction:</b> stars and the Sun identified north, south, east and west.</li><li><b>Navigation at sea:</b> direction on ocean journeys.</li><li><b>Timekeeping:</b> time and seasons from the Sun, Moon and stars.</li><li><b>Estimating location:</b> position and latitude during a journey.</li><li><b>Astronomical observation:</b> studying and recording celestial movements.</li></ul>',
+Advantages:'<ul><li><b>Simple to use:</b> no complex instruments.</li><li><b>No modern technology:</b> no GPS, satellites or electronics.</li><li><b>Useful for navigation:</b> direction and position on long journeys.</li><li><b>Works day and night:</b> the Sun by day, stars by night.</li></ul>',
+Limitations:'<ul><li><b>Limited precision:</b> approximate positions, not precise coordinates.</li><li><b>Needs clear skies:</b> favourable weather and an unobstructed view.</li><li><b>Complex calculations:</b> exact positions and timings need detailed work.</li><li><b>Limited modern use:</b> not sufficient alone for precise modern geodetic positioning and mapping.</li></ul>'};
+const SEA={all:['Navigated for thousands of years','The Indian Ocean has been sailed for thousands of years, without GPS, radar or electronic charts. Sailors combined celestial observations, winds, currents, coastal landmarks and accumulated knowledge. Astronomy gave direction, time and approximate position. Choose one to explore.'],sun:['Sun','Its apparent movement across the sky gave information about direction and time. Changes in its position could also help sailors recognise seasonal patterns.'],stars:['Stars','Certain stars gave relatively stable reference points for direction. Knowing recurring celestial patterns helped sailors recognise their position and route. Here the Saptarishi pattern points to Dhruva.'],moon:['Moon','The Moon and its phases were useful for timekeeping and understanding recurring astronomical cycles. Slide the phase.'],wind:['Wind','Seasonal wind patterns were crucial for deciding when and in which direction to sail.']};
+const fmt=t=>{const h=Math.floor(t),m=Math.round((t-h)*60)%60;return((h+11)%12+1)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')};
+ORDER.forEach(k=>{const b=document.createElement('button');b.textContent=NAMES[k];b.dataset.g=k;$('#nav').appendChild(b)});
+document.addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g)go(g.dataset.g)});
+const eff=()=>sec==='end'?8:sec==='shanku'?step:0;
+function viewFor(){if(sec!=='shanku')return;const e=step,k=e>=8?'wide':e>=6?'top':'def';if(k===viewK)return;viewK=k;if(k==='wide')cam([0,1,0],24,.5,.9,{auto:true});else if(k==='top')cam([0,0,0],17,0,.12);else cam([0,1.5,0],15,.75,1.05)}
+function cfg(){
+ if(sec==='hero'){cam([0,-2,0],19,.7,1.38,{auto:true});skyK='dusk';tmT=17.7}
+ if(sec==='lab'){cam([400,done?16:2,-60],done?88:62-Math.min(sel.length,6)*1.6,0,1.5708,{orbit:false,sp:done?1.6:1.4,min:20,max:100});skyK='night'}
+ if(sec==='sea')seaMode(mode);
+ if(sec==='shanku'){skyK='day';viewK='';drawStep()}
+ if(sec==='know'){cam([0,3,0],30,2.2,1.2,{auto:true});skyK='dusk';tmT=17.7}
+ if(sec==='end'){cam([0,3,0],19,.4,1.15,{auto:true});skyK='dusk';tmT=15}}
+function go(s){sec=s;$$('.panel').forEach(p=>p.classList.toggle('on',p.dataset.s===s));$$('nav button').forEach(b=>b.classList.toggle('a',b.dataset.g===s));$('#pg').style.width=ORDER.indexOf(s)/5*100+'%';if(s!=='shanku')stop();cfg()}
+/* lab */
+function addSeg(a,b){const m=mkBar(.09,lineM);lines.add(m);segs.push({m,a:SP[a],b:SP[b],t:0})}
+function addRing(i){if(rings[i])return;const r=spr(ringT,Math.max(SZ[i]*8,3));r.position.copy(SP[i]);LB.add(r);rings[i]=r}
+function pick(i){if(sel[sel.length-1]===i)return;if(sel.length)addSeg(sel[sel.length-1],i);sel.push(i);addRing(i);lab()}
+function lab(){done=DP.every((_,i)=>sel.includes(i));$('#st').textContent='Stars selected: '+sel.length+(done?' · pattern complete':'');$('#done').style.display=done?'block':'none';ptr.userData.on=done?1:0;if(!done)ptr.visible=false;if(sec==='lab')cfg()}
+$('#un').onclick=()=>{if(!sel.length)return;const l=sel.pop();if(segs.length)lines.remove(segs.pop().m);if(!sel.includes(l)){LB.remove(rings[l]);delete rings[l]}lab()};
+const clr=()=>{sel=[];segs.forEach(s=>lines.remove(s.m));segs=[];Object.values(rings).forEach(r=>LB.remove(r));rings={};lab()};
+let rvT;$('#rs').onclick=()=>{clearTimeout(rvT);clr()};
+$('#rv').onclick=()=>{clearTimeout(rvT);clr();let k=0;const nx=()=>{if(k<SEQ.length){pick(SEQ[k++]);rvT=setTimeout(nx,RM?50:560)}};nx()};
+$('#tl').onclick=()=>{showLb=!showLb};$('#tg').onclick=()=>{showLines=!showLines;lines.visible=showLines};
+/* sea */
+function seaMode(m){mode=m;skyK=m==='sun'?'sunset':'night';
+ const c={all:[[800,6,0],30,.3,1.35],sun:[[800,16,-50],58,0,1.45],stars:[[800,38,-70],62,0,1.5],moon:[[822,26,-55],22,0,1.5],wind:[[800,3,0],26,.9,1.3]}[m];cam(c[0],c[1],c[2],c[3],{min:12,max:110});
+ $('#seat').innerHTML=Object.keys(SEA).map(k=>'<button class="tab'+(k===m?' a':'')+'" data-m="'+k+'">'+(k==='all'?'Overview':SEA[k][0])+'</button>').join('');
+ $('#seap').innerHTML='<b>'+SEA[m][0]+'</b>. '+SEA[m][1];$('#moonc').style.display=m==='moon'?'block':'none';$('#winc').style.display=m==='wind'?'flex':'none';
+ arcG.visible=m==='sun';dipG.visible=m==='stars';wind.visible=m==='wind'}
+$('#seat').onclick=e=>{const b=e.target.closest('[data-m]');if(b)seaMode(b.dataset.m)};
+$('#ws').onclick=()=>{windDir*=-1};
+/* shanku */
+function drawStep(){const s=STEPS[step];$('#sh').textContent=s[0];$('#sp').textContent=s[1];$('#nx').textContent=step===0?'Begin experiment':step===8?'Finished':'Next step';$('#pv').disabled=step===0;$('#nx').disabled=step===8;$('#pl').textContent=playing?'Pause':'Play demonstration';tmT=s[2];viewFor()}
+const stop=()=>{if(playing){clearInterval(playing);playing=0}$('#pl').textContent='Play demonstration'};
+const adv=d=>{step=cl(step+d,0,8);drawStep()};
+$('#nx').onclick=()=>{stop();adv(1)};$('#pv').onclick=()=>{stop();adv(-1)};
+$('#pl').onclick=()=>{if(playing){stop();return}if(step>=8)step=0;drawStep();playing=setInterval(()=>{if(step>=8)stop();else adv(1)},4200);$('#pl').textContent='Pause'};
+$('#rx').onclick=()=>{stop();step=0;tm=tmT=9;viewK='';viewFor();drawStep()};
+$('#bl').onclick=()=>{showSh=!showSh};$('#bc').onclick=()=>{showCon=!showCon};
+$('#bt').onclick=()=>{viewK='x';cam([0,0,0],17,0,.12)};$('#bd').onclick=()=>{viewK='x';cam([0,1.5,0],15,.75,1.05)};
+$('#tm').oninput=e=>{tm=tmT=+e.target.value};$('#tm').onpointerdown=()=>tmDrag=true;addEventListener('pointerup',()=>tmDrag=false);
+addEventListener('keydown',e=>{if(sec==='shanku'&&!/INPUT/.test(e.target.tagName)){if(e.key==='ArrowRight'){stop();adv(1)}if(e.key==='ArrowLeft'){stop();adv(-1)}}});
+function know(k){$('#kt').innerHTML=Object.keys(KN).map(n=>'<button class="tab'+(n===k?' a':'')+'" data-k="'+n+'">'+n+'</button>').join('');$('#kp').innerHTML=KN[k];
+ const l=$('#lg');if(l){const f=()=>{const h=+l.value,d=h*15,a=d*toR,x=60+50*Math.sin(a),y=60-50*Math.cos(a);$('#lgs').innerHTML='<circle cx="60" cy="60" r="50" fill="none" stroke="#2a1a0e"/><path d="M60 60 L60 10 A50 50 0 '+(d>180?1:0)+' 1 '+x.toFixed(1)+' '+y.toFixed(1)+' Z" fill="#c9a24a" fill-opacity=".6" stroke="#6b4c1b"/>';$('#lgt').textContent=h+' h difference ≈ '+d+'° of longitude (idealised; it needs a shared reference time)'};l.oninput=f;f()}}
+$('#kt').onclick=e=>{const b=e.target.closest('[data-k]');if(b)know(b.dataset.k)};know('Mathematics');
+/* labels */
+mk('P1 — 9 AM',()=>P1.clone().setY(1.5),()=>pr.p1>.6);mk('P2 — 3 PM',()=>P2.clone().setY(1.5),()=>pr.p2>.6);
+mk('radius = distance to P1',()=>P1.clone().multiplyScalar(.5).setY(.7),()=>pr.circ>.3&&pr.ew<.1);
+mk('East–West axis',()=>V(0,.8,P1.z),()=>pr.ew>.9);
+[['North',0,-8.4],['South',0,8.4],['East',8.4,0],['West',-8.4,0]].forEach(([n,x,z])=>mk(n,()=>V(x,.6,z),()=>pr.card>.9));
+DP.forEach(([n],i)=>mk(n,()=>SP[i].clone().setY(SP[i].y+2),()=>showLb&&sec==='lab'&&(sel.includes(i)||done)));
+mk('Dhruva (Polaris)',()=>pol.clone().setY(pol.y+2.2),()=>showLb&&sec==='lab'&&done);
+mk('Saptarishi',()=>V(800,24,-70),()=>sec==='sea'&&mode==='stars');mk('Dhruva',()=>dipB.clone().setY(dipB.y+2),()=>sec==='sea'&&mode==='stars');
+LBL.forEach(l=>{const o=l.on;l.on=()=>o()&&(sec==='lab'||sec==='sea'||showSh)});
+/* input */
+const el=R.domElement,rc=new T.Raycaster();let down=null;
+el.onpointerdown=e=>{down={x:e.clientX,y:e.clientY,m:0};el.setPointerCapture(e.pointerId)};
+el.onpointermove=e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;down.m+=Math.abs(dx)+Math.abs(dy);down.x=e.clientX;down.y=e.clientY;if(tar.orbit){tar.th-=dx*.006;tar.ph=cl(tar.ph-dy*.005,.1,1.52);tar.auto=false}};
+el.onpointerup=e=>{if(down&&down.m<8&&sec==='lab'){const v=new T.Vector2(e.clientX/innerWidth*2-1,-e.clientY/innerHeight*2+1);rc.setFromCamera(v,C);const h=rc.intersectObjects(hits)[0];if(h)pick(h.object.userData.i)}down=null};
+el.addEventListener('wheel',e=>{e.preventDefault();tar.r=cl(tar.r*(1+e.deltaY*.001),tar.min,tar.max)},{passive:false});
+const rs=()=>{R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()};addEventListener('resize',rs);rs();
+/* ---------- loop ---------- */
+let last=performance.now(),T0=0,lastC=-1,fr=0,vo=0;
+function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;T0+=dt;if(++fr===3)$('#veil').style.opacity=0;
+ const k=1-Math.exp(-dt*(RM?9:tar.sp));if(tar.auto&&!RM)tar.th+=dt*.07;
+ cur.c.lerp(tar.c,k);cur.r+=(tar.r-cur.r)*k;cur.th+=(tar.th-cur.th)*k;cur.ph+=(tar.ph-cur.ph)*k;
+ C.position.set(cur.c.x+cur.r*Math.sin(cur.ph)*Math.sin(cur.th),cur.c.y+cur.r*Math.cos(cur.ph),cur.c.z+cur.r*Math.sin(cur.ph)*Math.cos(cur.th));C.lookAt(cur.c);
+ const sk=SK[skyK],kk=1-Math.exp(-dt*1.8);cTop.lerp(tmpC.setHex(sk.top),kk);cHor.lerp(tmpC.setHex(sk.hor),kk);stars.material.opacity+=(sk.st-stars.material.opacity)*kk;
+ {const vt=innerWidth>900?({hero:-.2,lab:-.13,shanku:-.13,end:-.13,sea:.13,know:.13}[sec]||0):0;vo+=(vt-vo)*kk;if(Math.abs(vo)>.002)C.setViewOffset(innerWidth,innerHeight,vo*innerWidth,0,innerWidth,innerHeight);else C.clearViewOffset()}
+ dome.position.copy(C.position);stars.position.copy(C.position);
+ A.visible=cur.c.x<300;LB.visible=cur.c.x>100&&cur.c.x<600;W.visible=cur.c.x>500;
+ const g=tmT-tm,v=(1.6+Math.abs(g)*.4)*dt;tm+=cl(g,-v,v);if(Math.abs(tmT-tm)<.001)tm=tmT;
+ if(!tmDrag)$('#tm').value=tm;$('#tt').textContent=fmt(tm);
+ const e=elev(tm),sd=sdir(tm),sp=sd.clone().multiplyScalar(Math.cos(e)*100).setY(Math.sin(e)*100),se=Math.max(0,Math.sin(e));sunM.position.copy(sp);sunL.position.copy(sp);
+ const nt=sec==='sea'||sec==='lab';hemi.intensity=nt?(sec==='sea'?.4:.2):.3+.22*se;sunL.intensity=nt?0:.12+se*.78;moonL.intensity=sec==='sea'?(mode==='sun'?.3:.9):0;
+ const E=eff(),tg={rod:sec==='shanku'&&E<1?0:1,p1:E>=2,p2:E>=5,circ:E>=3,ew:E>=6,ns:E>=7,card:E>=7},sp2={rod:1,p1:1.6,p2:1.6,circ:.4,ew:.5,ns:.5,card:1};
+ for(const q in pr){const t=+tg[q];pr[q]+=cl(t-pr[q],-sp2[q]*dt,sp2[q]*dt)}
+ gn.scale.y=Math.max(pr.rod,.001);gn.visible=pr.rod>.01;
+ [[p1m,pr.p1],[p2m,pr.p2]].forEach(([m,p])=>{m.visible=p>.01;m.scale.setScalar(p);m.userData.r.material.opacity=.5+.5*Math.sin(T0*3)})
+ if(Math.abs(pr.circ-lastC)>.003){lastC=pr.circ;cm.geometry.dispose();cm.geometry=pr.circ<.004?new T.BufferGeometry():new T.TorusGeometry(R1,.065,8,128,Math.max(.01,pr.circ*6.2832)).rotateX(1.5708).translate(0,Y,0)}
+ const O=V(0,Y,0),N1=V(0,Y,-7.2),S1=V(0,Y,7.2),W1=V(-7.2,Y,P1.z),E1=V(7.2,Y,P1.z);
+ bar(rad,O,P1,Math.min(1,pr.circ*3));bar(ew,P1,P2,pr.ew);bar(ns,N1,S1,pr.ns);bar(ewA,W1,E1,pr.card);
+ [cm,rad,ew,ns,ewA].forEach(m=>{if(!showCon)m.visible=false});
+ let pn=null;if(pr.circ>.004&&pr.circ<.996){const a=pr.circ*6.2832;pn=V(Math.cos(a)*R1,Y,Math.sin(a)*R1)}else if(pr.ew>.004&&pr.ew<.996)pn=P1.clone().lerp(P2,pr.ew);else if(pr.ns>.004&&pr.ns<.996)pn=N1.clone().lerp(S1,pr.ns);
+ pen.visible=!!pn&&showCon;if(pn)pen.position.copy(pn).setY(.45);
+ dust.rotation.y=T0*.01;
+ $('#cap').textContent=e<.26?'The Sun is low: the shadow is long and may run past the plate.':Math.abs(tm-12)<.4?'Near noon the shadow is at its shortest.':'The shadow points away from the Sun.';
+ if(LB.visible){let lp=null;segs.forEach(s=>{s.t=Math.min(1,s.t+dt*1.8);bar(s.m,s.a,s.b,s.t);if(s.t<1)lp=s.a.clone().lerp(s.b,s.t)});lpen.visible=!!lp;if(lp)lpen.position.copy(lp);
+  if(ptr.userData.on)bar(ptr,SP[0],pol,Math.min(1,(ptr.userData.p=(ptr.userData.p||0)+dt*.8)));else ptr.userData.p=0}
+ if(W.visible){const p=sg2.attributes.position.array;for(let i=0;i<p.length;i+=3)p[i+1]=Math.sin(p[i]*.12+T0*.9)*.5+Math.sin(p[i+2]*.17+T0*1.3)*.35;sg2.attributes.position.needsUpdate=true;sg2.computeVertexNormals();
+  boat.position.y=Math.sin(T0*.9)*.5;boat.rotation.z=Math.cos(T0*.9)*.04;boat.rotation.x=Math.sin(T0*1.1)*.03;glare.material.opacity=.15+.05*Math.sin(T0*2.1);
+  const a=((T0*.05)%1)*Math.PI;sunS.position.set(Math.cos(a)*46,Math.sin(a)*40,-60);
+  mU.a.value=(1-+$('#ph').value)*Math.PI;
+  for(let i=0;i<wn;i++){const q=wh[i];q.x+=windDir*dt*9;if(q.x>70)q.x=-70;if(q.x<-70)q.x=70;const y=q.y+Math.sin(T0+i)*.15;wp.set([q.x,y,q.z,q.x-windDir*3.2,y,q.z],i*6)}wg.attributes.position.needsUpdate=true}
+ const w=innerWidth,hh=innerHeight;LBL.forEach(l=>{let on=l.on();if(on){const q=l.pos();q.project(C);on=q.z<1&&Math.abs(q.x)<1.1&&Math.abs(q.y)<1.1;if(on)l.el.style.transform='translate('+((q.x*.5+.5)*w)+'px,'+((-q.y*.5+.5)*hh)+'px) translate(-50%,-135%)'}l.el.style.opacity=on?1:0});
+ R.render(S,C);requestAnimationFrame(frame)}
+go('hero');requestAnimationFrame(frame);
+})();
+</script></body></html>
